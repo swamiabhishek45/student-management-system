@@ -1,21 +1,24 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import connectDB from './config/db.js';
-import cors from 'cors';
+import express from "express";
+import dotenv from "dotenv";
+import connectDB from "./config/db.js";
+import cors from "cors";
+
+import studentRoutes from "./routes/studentRoutes.js";
 
 dotenv.config();
 
 const app = express();
-app.use(cors())
 
+const PORT = process.env.PORT || 5000;
 
+app.use(cors());
 app.use(express.json());
 
 // database conenction
 connectDB();
 
-const PORT = process.env.PORT || 5000;
+app.use("/api/student", studentRoutes);
 
 app.listen(PORT, () => {
-    console.log(`server is running on port ${PORT}`);
+  console.log(`server is running on port ${PORT}`);
 });
