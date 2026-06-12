@@ -39,7 +39,7 @@ const createStudent = async (res, res) => {
 
         const student = await Student.create({name, email, phone, course});
         console.log(student);
-        res.status(201),json({message: "student created successfully!"})
+        res.status(201).json({student, message: "student created successfully!"})
     } catch (error) {
 
         res.json({message: "failed to create student", error})
@@ -48,9 +48,37 @@ const createStudent = async (res, res) => {
 }
 
 const updateStudent = async (req, res) => {
+    try {
+        const student = await Student.findByIdAndUpdate(req.params.id, req.body);
 
+        if(!student){
+            res.status(404).json({message: "Student not found"});
+        }
+
+        res.status(200).json(student);
+    } catch (error) {
+        res.status(500).json({message: "Error in updating student"})
+    }
 }
 
 const deleteStudent = async (res, res) => {
-    
+    try {
+        const student = await Student.findByIdAndDelete(req.params.id);
+
+        if(!student){
+            res.status(404).json({message: "Student not found"})
+        }
+
+        res.status(200).json({student, message: "student deleted successfully"});
+    } catch (error) {
+        res.status(500).json({message: "Error in deleting student"})
+    }
+}
+
+export default {
+    getAllStudents,
+    getStudentById,
+    createStudent,
+    updateStudent,
+    deleteStudent
 }

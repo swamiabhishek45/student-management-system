@@ -5,9 +5,9 @@ import cors from 'cors';
 
 dotenv.config();
 
+const app = express();
 app.use(cors())
 
-const app = express();
 
 app.use(express.json());
 
