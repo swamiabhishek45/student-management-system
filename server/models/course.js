@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 const courseSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
     },
     code: {
         type: String,
@@ -20,6 +20,6 @@ const courseSchema = new mongoose.Schema({
         ref: 'Teacher',
         required: true
     }
-});
+}, {timestamps: true});
 
 export const Course = mongoose.model('Course', courseSchema);

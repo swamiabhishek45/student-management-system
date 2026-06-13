@@ -8,7 +8,7 @@ export const createTeacher = async (req, res) => {
 
         return res.status(201).json({success: true, teacher});
     } catch (error) {
-        res.josn(500).json({success:false, error: error.message})
+        res.json(500).json({success:false, error: error.message})
     }
 }
 
