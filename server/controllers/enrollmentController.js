@@ -56,18 +56,10 @@ export const getAllEnrollments = async (req, res) => {
 
 export const getEnrollmentsByCourse = async(req, res)=>{
     try {
-        const enrollments = await Enrollment.find({courseId: req.params.courseId}).populate(
-            "studentId",
-            "name email grade"
-          )
-          .populate(
-            "courseId",
-            "name code"
-          );
+        const enrollments = await Enrollment.find({ courseId: req.params.courseId })
+            .populate("studentId", "studentId name email grade phone address");
 
-          if(!enrollments){
-            return res.status(400).json({message: "no enrollments found"});
-        }
+
 
         return res.status(200).json({count: enrollments.length, enrollments});
 

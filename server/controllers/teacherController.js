@@ -3,6 +3,14 @@ import {Teacher} from '../models/teacher.js';
 export const createTeacher = async (req, res) => {
     try {
         const {name, email, subject} = req.body;
+        if (!name || !email || !subject) {
+            return res.status(400).json({ success: false, message: "All fields are required" });
+        }
+
+        const existingTeacher = await Teacher.findOne({ email });
+        if (existingTeacher) {
+            return res.status(400).json({ success: false, message: "Teacher Email must be unique" });
+        }
     
         const teacher = await Teacher.create({name, email, subject});
 
@@ -15,10 +23,6 @@ export const createTeacher = async (req, res) => {
 export const getAllTeachers = async (req, res) => {
     try {
         const teachers = await Teacher.find();
-
-        if (!teachers){
-            return res.status(404).json({success:false, message:"No teachers found"})
-        }
 
         return res.status(200).json({success: true, teachers})
     } catch (error) {

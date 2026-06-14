@@ -5,6 +5,7 @@
 
 import { Course } from "../models/course.js";
 import { Teacher } from "../models/teacher.js";
+import { Enrollment } from "../models/enrollment.js";
 
 export const createCourse = async (req, res) => {
   try {
@@ -34,10 +35,6 @@ export const getAllCourses = async (req, res) => {
       "teacherId",
       "name email subject",
     );
-
-    if (!courses) {
-      return res.status(404).json({ message: "No courses found" });
-    }
 
     return res.status(200).json(courses);
   } catch (error) {
@@ -105,9 +102,6 @@ export const getCoursesByTeacher = async(req,res) => {
     try {
         const courses = await Course.find({teacherId: req.params.teacherId}).populate("teacherId", "name email subject");
 
-        if(!courses){
-            return res.status(404).json({message: "No courses found"});
-        }
 
         return res.status(200).json({count: courses.length, courses})
     } catch (error) {
