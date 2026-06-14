@@ -9,9 +9,9 @@ import { Button } from '../ui/button';
 import { MoreVertical } from 'lucide-react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
-const StudentCard = ({ student }) => {
+const StudentCard = ({ student, onViewProfile }) => {
   return (
-   <Card className="w-full max-w-xs border shadow-sm rounded-xl">
+   <Card className="w-full max-w-xs border shadow-sm rounded-xl bg-white text-slate-800">
       <CardContent className="p-6">
       {/* top section  */}
       <div className='flex justify-end'>
@@ -24,11 +24,11 @@ const StudentCard = ({ student }) => {
 
       <div className='flex justify-center -mt-10'>
         <Avatar className="w-20 h-20 rounded-full border-4 border-white shadow-lg">
-          <AvatarFallback className="text-2xl font-bold">
+          <AvatarFallback className="text-2xl font-bold bg-orange-50 text-orange-600 border border-orange-100">
             {student.name
               .split(" ")
               .map((n) => n[0])
-              .join("")}
+              .join("").toUpperCase()}
           </AvatarFallback>
         </Avatar>
 
@@ -41,7 +41,7 @@ const StudentCard = ({ student }) => {
 
         <p className='text-gray-500 text-sm'>{student.email}</p>
 
-         <span className="mt-3 inline-block rounded-md bg-blue-50 px-3 py-1 text-sm text-blue-600">
+         <span className="mt-3 inline-block rounded-md bg-orange-100 px-3 py-1 text-sm text-orange-600">
             {student.grade}
           </span>
       </div>
@@ -51,7 +51,7 @@ const StudentCard = ({ student }) => {
 
   {/* Courses */}
         <div className="text-center">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-slate-400 uppercase tracking-wider">
             Enrolled Courses
           </p>
 
@@ -64,6 +64,7 @@ const StudentCard = ({ student }) => {
         <Button
           variant="outline"
           className="mt-5 w-full"
+          onClick={() => onViewProfile(student)}
         >
           View Profile
         </Button>

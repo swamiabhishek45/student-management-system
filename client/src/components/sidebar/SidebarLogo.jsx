@@ -9,7 +9,7 @@ const SidebarLogo = () => {
         </div>
 
         <div className='flex flex-col min-w-0'>
-            <span className=' font-bold text-2xl text-orange-600'>
+            <span className=' font-bold text-2xl text-orange-600 tracking-wider'>
                 SMS
             </span>
         </div>
