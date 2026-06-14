@@ -6,20 +6,27 @@ import {
   SidebarHeader,
 } from "../ui/sidebar";
 import SidebarNav from "./SidebarNav";
+import SidebarLogo from "./SidebarLogo";
+import SidebarUser from "./SidebarUser";
 
 const SidebarMain = () => {
   return (
-    <Sidebar>
+    <Sidebar className="">
       {/* header  */}
       <SidebarHeader>
-        <SidebarNav/>
+        <SidebarLogo />
       </SidebarHeader>
 
       {/* Content  */}
-      <SidebarContent></SidebarContent>
+      <SidebarContent>
+        <SidebarNav/>
 
+      </SidebarContent>
+        
       {/* footer  */}
-      <SidebarFooter></SidebarFooter>
+      <SidebarFooter>
+        <SidebarUser />
+      </SidebarFooter>
     </Sidebar>
   );
 };
