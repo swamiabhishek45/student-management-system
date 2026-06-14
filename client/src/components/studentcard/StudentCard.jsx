@@ -1,0 +1,76 @@
+import React from 'react'
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from '../ui/button';
+import { MoreVertical } from 'lucide-react';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+
+const StudentCard = ({ student }) => {
+  return (
+   <Card className="w-full max-w-xs border shadow-sm rounded-xl">
+      <CardContent className="p-6">
+      {/* top section  */}
+      <div className='flex justify-end'>
+        <Button variant="ghost" size="icon">
+          <MoreVertical size={18}/>
+        </Button>
+      </div>
+
+      {/* profile image  */}
+
+      <div className='flex justify-center -mt-10'>
+        <Avatar className="w-20 h-20 rounded-full border-4 border-white shadow-lg">
+          <AvatarFallback className="text-2xl font-bold">
+            {student.name
+              .split(" ")
+              .map((n) => n[0])
+              .join("")}
+          </AvatarFallback>
+        </Avatar>
+
+      </div>
+
+      {/* info  */}
+
+      <div className='text-center mt-6'>
+        <h3 className='font-semibold text-lg'>{student.name}</h3>
+
+        <p className='text-gray-500 text-sm'>{student.email}</p>
+
+         <span className="mt-3 inline-block rounded-md bg-blue-50 px-3 py-1 text-sm text-blue-600">
+            {student.grade}
+          </span>
+      </div>
+
+
+ <div className="my-5 border-t" />
+
+  {/* Courses */}
+        <div className="text-center">
+          <p className="text-sm text-muted-foreground">
+            Enrolled Courses
+          </p>
+
+          <p className="mt-1 text-2xl font-semibold">
+            {student.courses}
+          </p>
+        </div>
+
+           {/* Button */}
+        <Button
+          variant="outline"
+          className="mt-5 w-full"
+        >
+          View Profile
+        </Button>
+
+      </CardContent>
+    </Card>
+  )
+}
+
+export default StudentCard
