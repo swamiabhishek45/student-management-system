@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   SidebarGroup,
   SidebarMenu,
@@ -16,17 +16,23 @@ const MENU_ITEMS = [
 ];
 
 const SidebarNav = () => {
+  const [activeTab, setActiveTab] = useState("dashboard");
   return (
     <SidebarGroup className="px-3">
       <SidebarMenu className="gap-2">
         {MENU_ITEMS.map((item) => {
           const Icon = item.icon;
+          const isActive = activeTab === item.id;
           return (
             <SidebarMenuSubItem key={item.id}>
               <SidebarMenuButton
-                isActive={item.isActive}
+                isActive={isActive}
                 asChild
                 className={`w-full items-center rounded-lg  font-medium text-sm transition-colors gap-3 px-3 py-3 flex cursor-pointer ${item.isActive ? "bg-orange-600 text-orange-600 hover:text-orange-600 hover:bg-orange-50" : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setActiveTab(item.id);
+                }}
               >
                 <a
                   href={`#${item.id}`}

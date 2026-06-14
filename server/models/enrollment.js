@@ -24,6 +24,6 @@ const enrollmentSchema = new mongoose.Schema(
 
 // prevent duplicates enrollments
 
-enrollmentSchema.index({studentId, courseId}, {unique: true});
+enrollmentSchema.index({ studentId: 1, courseId: 1 }, { unique: true });
 
 export const Enrollment = mongoose.model("Enrollment", enrollmentSchema);
