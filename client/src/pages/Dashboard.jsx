@@ -1,5 +1,5 @@
 import Header from "@/components/Header";
-import ProfilePanel from "@/components/ProfilePanel";
+import ProfilePanel from "@/components/profilepanel/ProfilePanel";
 import SidebarMain from "@/components/sidebar/Sidebar";
 import StudentCard from "@/components/studentcard/StudentCard";
 import { SidebarProvider } from "@/components/ui/sidebar";
