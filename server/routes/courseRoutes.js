@@ -6,7 +6,7 @@ import {
   createCourse,
   updateCourse,
   deleteCourse,
-//   getCoursesByTeacher,
+  getCoursesByTeacher,
 } from "../controllers/courseController.js";
 
 const router = express.Router();
@@ -22,6 +22,6 @@ router.put("/:id", updateCourse);
 router.delete("/:id", deleteCourse);
 
 // View Teacher Assignments
-// router.get("/teacher/:teacherId", getCoursesByTeacher);
+router.get("/teacher/:teacherId", getCoursesByTeacher);
 
 export default router;
