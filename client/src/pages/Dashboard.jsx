@@ -1,6 +1,6 @@
 import Header from '@/components/Header';
 import ProfilePanel from '@/components/ProfilePanel';
-import SidebarComp from '@/components/Sidebar';
+import Sidebar from '@/components/Sidebar';
 import StudentCard from '@/components/StudentCard';
 import { Sidebar } from 'lucide-react';
 import React from 'react'
@@ -17,7 +17,7 @@ const Dashboard = () => {
 
         {/* sidebar */}
 
-        <SidebarComp />
+        <Sidebar />
         <main className='flex-1 p-4'>
 
             {/* header  */}

@@ -1,8 +1,23 @@
 import React from 'react'
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
-const StudentCard = () => {
+const StudentCard = ({ student }) => {
   return (
-    <div>StudentCard</div>
+   <Card>
+      <CardHeader>
+        <CardTitle>{student.name}</CardTitle>
+      </CardHeader>
+
+      <CardContent>
+        <p>Grade: {student.grade}</p>
+        <p>Courses: {student.courses}</p>
+      </CardContent>
+    </Card>
   )
 }
 
