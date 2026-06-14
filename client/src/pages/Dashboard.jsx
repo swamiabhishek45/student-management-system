@@ -4,29 +4,57 @@ import SidebarMain from "@/components/sidebar/Sidebar";
 import StudentCard from "@/components/studentcard/StudentCard";
 import { SidebarProvider } from "@/components/ui/sidebar";
 // import { Sidebar } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { 
   Drawer, 
   DrawerContent,
 } from "@/components/ui/drawer";
 
 const Dashboard = () => {
-
+  const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const students = [
-    { name: "Abhishek", grade: "A", courses: 4, email: "one@123"},
-    { name: "Priya", grade: "B", courses: 3, email: "[one@123" },
-    { name: "Rahul", grade: "A+", courses: 5, email: "two@123" },{ name: "Rahul", grade: "A+", courses: 5, email: "two@123" },
-    { name: "Rahul", grade: "A+", courses: 5, email: "two@123" },
-    { name: "Rahul", grade: "A+", courses: 5, email: "two@123" },
-  ];
-  
- const handleViewProfile = (student) => {
+
+  const fetchData = async () => {
+    try {
+
+      const [studentsRes, enrollmentsRes] = await Promise.all([
+        fetch("http://localhost:5000/api/students"),
+        fetch("http://localhost:5000/api/enrollments")
+      ]);
+
+      const studentsData = await studentsRes.json();
+      const enrollmentsData = await enrollmentsRes.json();
+
+      // Combine student details with their enrollment counts and course lists
+      const enriched = studentsData.map(student => {
+        const studentEnrollments = (enrollmentsData.enrollments || []).filter(
+          e => e.studentId && e.studentId._id === student._id
+        );
+        return {
+          ...student,
+          courses: studentEnrollments.length,
+          coursesList: studentEnrollments.map(e => e.courseId).filter(Boolean)
+        };
+      });
+
+      setStudents(enriched);
+
+    } catch (err) {
+      console.error(err);
+    } 
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleViewProfile = (student) => {
     setSelectedStudent(student);
     setIsDrawerOpen(true);
   };
+
 
   return (
     <SidebarProvider>
@@ -41,15 +69,14 @@ const Dashboard = () => {
 
           {/* content layout  */}
           <div className="mt-6 flex-1">
-
-            <div className="w-full">
+            
+              <div className="w-full">
               <div className="grid gap-6 transition-all duration-300 
                   grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
-              {students.map((std) => (
-                // studentcard
-                <StudentCard key={std.name} student={std} onViewProfile={handleViewProfile} />
-              ))}
-              </div>
+                  {students.map((std) => (
+                    <StudentCard key={std.name} student={std} onViewProfile={handleViewProfile} />
+                  ))}
+                </div>
             </div>
           </div>
         </main>

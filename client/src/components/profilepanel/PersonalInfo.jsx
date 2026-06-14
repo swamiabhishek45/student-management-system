@@ -24,7 +24,7 @@ const PersonalInfo = ({ studentId, phone, address }) => {
                 <Phone className="h-5 w-5" />
             </div>
             <div className='flex flex-col'>
-             <span className='text-xs to-slate-400'>Phone</span>
+             <span className='text-xs text-slate-400'>Phone</span>
              <span className='font-semibold mt-0.5 text-slate-700'>{phone}</span>
             </div>
         </div>
@@ -36,7 +36,7 @@ const PersonalInfo = ({ studentId, phone, address }) => {
                 <MapPin className="h-5 w-5" />
             </div>
             <div className='flex flex-col'>
-             <span className='text-xs to-slate-400'>Address</span>
+             <span className='text-xs text-slate-400'>Address</span>
              <span className='font-semibold mt-0.5 text-slate-700'>{address}</span>
             </div>
         </div>
