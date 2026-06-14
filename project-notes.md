@@ -32,7 +32,7 @@ Admin model:
 ## Relationships
 student <----> couse
 
-many student can join courses
+many student can join courses (many-to-many relationship)
 
 student -> enroll -> course
 

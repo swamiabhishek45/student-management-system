@@ -65,7 +65,7 @@ export const updateCourse = async (req, res) => {
     try {
         const {teacherId} = req.body;
 
-        if(teacherId){
+        if(!teacherId){
             const teacher = await Teacher.findById(teacherId);
             if(!teacher){
                 return res.status(404).json({success: false, message: "Teacher not found"})
@@ -105,8 +105,11 @@ export const getCoursesByTeacher = async(req,res) => {
     try {
         const courses = await Course.find({teacherId: req.params.teacherId}).populate("teacherId", "name email subject");
 
+        if(!courses){
+            return res.status(404).json({message: "No courses found"});
+        }
 
-        return res.status(200).json({count: course.length, courses})
+        return res.status(200).json({count: courses.length, courses})
     } catch (error) {
         return res.status(500).json({message: "error in fetching courses", error: error.message})
     }
