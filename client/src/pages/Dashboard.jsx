@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import Header from "@/components/header/Header";
 import ProfilePanel from "@/components/profilepanel/ProfilePanel";
 import SidebarMain from "@/components/sidebar/Sidebar";
 import StudentCard from "@/components/studentcard/StudentCard";
@@ -49,7 +49,7 @@ const Dashboard = () => {
   };
 
   const fetchCounts = async () => {
-   
+
   };
 
   useEffect(() => {
@@ -75,9 +75,9 @@ const Dashboard = () => {
           {/* content layout  */}
           <div className="mt-6 flex-1">
             {activeTab === "dashboard" && (
-        <>
-        dashbiard
-        </>
+              <>
+                dashbiard
+              </>
             )}
 
             {activeTab === "students" && (
