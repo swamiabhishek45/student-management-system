@@ -39,6 +39,15 @@ student -> enroll -> course
 techer -> course
 
 
+## final presentation
+admin
+
+create student
+create teacher -> course
+create course
+create enrollment -> student + course
+
+
 ## JWT Auth
     - sign in
     - sign up
