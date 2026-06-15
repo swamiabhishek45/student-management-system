@@ -9,7 +9,7 @@ import SidebarNav from "./SidebarNav";
 import SidebarLogo from "./SidebarLogo";
 import SidebarUser from "./SidebarUser";
 
-const SidebarMain = () => {
+const SidebarMain = ({ activeTab, setActiveTab }) => {
   return (
     <Sidebar className="">
       {/* header  */}
@@ -19,10 +19,10 @@ const SidebarMain = () => {
 
       {/* Content  */}
       <SidebarContent>
-        <SidebarNav/>
+        <SidebarNav activeTab={activeTab} setActiveTab={setActiveTab} />
 
       </SidebarContent>
-        
+
       {/* footer  */}
       <SidebarFooter>
         <SidebarUser />

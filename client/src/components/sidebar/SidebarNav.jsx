@@ -15,8 +15,7 @@ const MENU_ITEMS = [
   { id: "enrollments", label: "Enrollments", icon: ClipboardList },
 ];
 
-const SidebarNav = () => {
-  const [activeTab, setActiveTab] = useState("dashboard");
+const SidebarNav = ({ activeTab, setActiveTab }) => {
   return (
     <SidebarGroup className="px-3">
       <SidebarMenu className="gap-2">
@@ -28,7 +27,7 @@ const SidebarNav = () => {
               <SidebarMenuButton
                 isActive={isActive}
                 asChild
-                className={`w-full items-center rounded-lg  font-medium text-sm transition-colors gap-3 px-3 py-3 flex cursor-pointer ${item.isActive ? "bg-orange-600 text-orange-600 hover:text-orange-600 hover:bg-orange-50" : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"}`}
+                className={`w-full items-center rounded-lg font-medium text-sm transition-colors gap-3 px-3 py-3 flex cursor-pointer ${isActive ? "bg-orange-50 text-orange-600 font-semibold" : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"}`}
                 onClick={(e) => {
                   e.preventDefault();
                   setActiveTab(item.id);
@@ -39,7 +38,7 @@ const SidebarNav = () => {
                   className="flex items-center w-full gap-3"
                 >
                   <Icon
-                    className={`h-5 w-5 ${item.isActive ? "text-orange-600" : "text-slate-400 group-hover:text-slate-600"}`}
+                    className={`h-5 w-5 ${isActive ? "text-orange-600" : "text-slate-400 group-hover:text-slate-600"}`}
                   />
                   <span>{item.label}</span>
                 </a>

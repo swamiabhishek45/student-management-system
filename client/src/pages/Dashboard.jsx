@@ -3,39 +3,39 @@ import ProfilePanel from "@/components/profilepanel/ProfilePanel";
 import SidebarMain from "@/components/sidebar/Sidebar";
 import StudentCard from "@/components/studentcard/StudentCard";
 import { SidebarProvider } from "@/components/ui/sidebar";
-// import { Sidebar } from "lucide-react";
-import React, { act, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
+import StudentPage from "./StudentPage";
+import TeachersPage from "./TechersPage";
+import CoursesPage from "./CoursesPage";
+import EnrollmentsPage from "./EnrollmentsPage";
+import { BookOpen, ClipboardList, User, Users } from "lucide-react";
 
 const Dashboard = () => {
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
-
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("dashboard");
 
-  const [activeTab, setActiveTab] = useState("dashboard")
+
 
   const getStudents = async () => {
     try {
       const studentsResponse = await fetch(
         "http://localhost:5000/api/students",
       );
-
       const studentsData = await studentsResponse.json();
 
       const enrollmentsResponse = await fetch(
         "http://localhost:5000/api/enrollments",
       );
-
       const enrollmentsData = await enrollmentsResponse.json();
 
       const updatedStudents = [];
-
       studentsData.forEach((student) => {
         const studentEnrollments = enrollmentsData.enrollments.filter(
           (enrollment) => enrollment.studentId?._id === student._id,
         );
-
         updatedStudents.push({
           ...student,
           courses: studentEnrollments.length,
@@ -48,8 +48,13 @@ const Dashboard = () => {
     }
   };
 
+  const fetchCounts = async () => {
+   
+  };
+
   useEffect(() => {
     getStudents();
+    fetchCounts();
   }, []);
 
   const handleViewProfile = (student) => {
@@ -62,34 +67,35 @@ const Dashboard = () => {
       <div className="flex w-full min-h-screen bg-white text-black">
         {/* sidebar */}
 
-        <SidebarMain />
+        <SidebarMain activeTab={activeTab} setActiveTab={setActiveTab} />
         <main className="flex-1 p-6 ">
           {/* header  */}
-          <Header />
+          <Header activeTab={activeTab} />
 
           {/* content layout  */}
-        <div className="mt-6 flex-1">
-            <div className="w-full">
-              <div
-                className="grid gap-6 transition-all duration-300 
-                  grid-cols-1 md:grid-cols-2 xl:grid-cols-4"
-              >
-                {students.map((std) => (
-                  <StudentCard
-                    key={std.name}
-                    student={std}
-                    onViewProfile={handleViewProfile}
-                  />
-                ))}
-              </div>
-            </div>
+          <div className="mt-6 flex-1">
+            {activeTab === "dashboard" && (
+        <>
+        dashbiard
+        </>
+            )}
+
+            {activeTab === "students" && (
+              <StudentPage onViewProfile={handleViewProfile} />
+            )}
+
+            {activeTab === "teachers" && (
+              <TeachersPage />
+            )}
+
+            {activeTab === "courses" && (
+              <CoursesPage />
+            )}
+
+            {activeTab === "enrollments" && (
+              <EnrollmentsPage />
+            )}
           </div>
-
-          {/* <div className="flex1">
-
-            {activeTab === "dashboard" && (<Dashboard onNavigate={setActiveTab}/>)}
-             
-          </div> */}
 
         </main>
 
