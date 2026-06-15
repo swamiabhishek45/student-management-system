@@ -3,44 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import ProfilePanel from "@/components/profilepanel/ProfilePanel";
 
-const StudentPage = ({ onViewProfile }) => {
-  const [students, setStudents] = useState([]);
+const StudentPage = ({ students, onViewProfile }) => {
   const [selectedStudent, setSelectedStudent] = useState(null);
-
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
-  const getStudents = async () => {
-    try {
-      const studentsResponse = await fetch(
-        "http://localhost:5000/api/students",
-      );
-
-      const studentsData = await studentsResponse.json();
-
-      const enrollmentsResponse = await fetch(
-        "http://localhost:5000/api/enrollments",
-      );
-
-      const enrollmentsData = await enrollmentsResponse.json();
-
-      const updatedStudents = [];
-
-      studentsData.forEach((student) => {
-        const studentEnrollments = enrollmentsData.enrollments.filter(
-          (enrollment) => enrollment.studentId?._id === student._id,
-        );
-
-        updatedStudents.push({
-          ...student,
-          courses: studentEnrollments.length,
-        });
-      });
-
-      setStudents(updatedStudents);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const handleViewProfile = (student) => {
     if (onViewProfile) {
@@ -51,10 +16,6 @@ const StudentPage = ({ onViewProfile }) => {
     }
   };
 
-  useEffect(() => {
-    getStudents();
-  }, []);
-
   return (
     <div className="mt-6 flex-1">
       <div className="w-full">
@@ -64,7 +25,7 @@ const StudentPage = ({ onViewProfile }) => {
         >
           {students.map((std) => (
             <StudentCard
-              key={std.name}
+              key={std.id}
               student={std}
               onViewProfile={handleViewProfile}
             />

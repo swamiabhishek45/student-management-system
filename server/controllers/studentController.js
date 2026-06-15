@@ -30,9 +30,9 @@ export const getStudentById = async (req, res) => {
 
 export const createStudent = async (req, res) => {
     try {
-        const {name, email, phone, course, grade, address} = req.body;
+        const { name, email, phone, grade, address } = req.body;
 
-        if(!name || !email || !phone || !course || !grade || !address){
+        if(!name || !email || !phone || !grade || !address){
             return res.status(400).json({message: "All fields are required"})
         }
 
@@ -42,7 +42,12 @@ export const createStudent = async (req, res) => {
             return res.status(400).json({message: "Student with this email already exists"})
         }
 
-        const student = await Student.create({name, email, phone, course, grade, address});
+        // Auto-generate studentId since it is a required unique field in the schema
+        const studentId = "STU" + Date.now();
+
+        // Create the student in MongoDB
+        const student = await Student.create({  studentId, name, email, phone, grade, address});
+        
         console.log(student);
         res.status(201).json({student, message: "student created successfully!"})
     } catch (error) {

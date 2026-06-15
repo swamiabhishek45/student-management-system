@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
 
@@ -16,7 +16,9 @@ import TeacherInputModal from "./TeacherInputModal";
 import CourseInputModal from "./CourseInputModal";
 import EnrollmentInputModal from "./EnrollmentInputModal";
 
-const Header = ({ activeTab, onAddClick }) => {
+const Header = ({ activeTab, onAddClick, onStudentAdded }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const getHeaderInfo = () => {
     switch (activeTab) {
       case "dashboard":
@@ -43,20 +45,27 @@ const Header = ({ activeTab, onAddClick }) => {
       </div>
 
       {buttonText && (
-        <Dialog>
-          <DialogTrigger>   <Button
-            onClick={onAddClick}
-            className="bg-orange-600 hover:bg-orange-700 gap-2 flex items-center px-4 py-2 cursor-pointer"
-          >
-            <Plus className="h-4 w-4" />
-            <span>{buttonText}</span>
-          </Button></DialogTrigger>
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+          <DialogTrigger asChild>
+            <Button
+              onClick={onAddClick}
+              className="bg-orange-600 hover:bg-orange-700 gap-2 flex items-center px-4 py-2 cursor-pointer"
+            >
+              <Plus className="h-4 w-4" />
+              <span>{buttonText}</span>
+            </Button>
+          </DialogTrigger>
 
 
           <DialogContent>
             <DialogHeader className="mt-10">
               {activeTab === "students" && (
-                 <StudentInputModal />
+                <StudentInputModal
+                  onStudentAdded={() => {
+                    setIsOpen(false);
+                    if (onStudentAdded) onStudentAdded();
+                  }}
+                />
               )}
 
               {activeTab === "teachers" && (

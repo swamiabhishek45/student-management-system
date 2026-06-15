@@ -70,7 +70,7 @@ const Dashboard = () => {
         <SidebarMain activeTab={activeTab} setActiveTab={setActiveTab} />
         <main className="flex-1 p-6 ">
           {/* header  */}
-          <Header activeTab={activeTab} />
+          <Header activeTab={activeTab} onStudentAdded={getStudents} />
 
           {/* content layout  */}
           <div className="mt-6 flex-1">
@@ -81,7 +81,7 @@ const Dashboard = () => {
             )}
 
             {activeTab === "students" && (
-              <StudentPage onViewProfile={handleViewProfile} />
+              <StudentPage students={students} onViewProfile={handleViewProfile} />
             )}
 
             {activeTab === "teachers" && (
