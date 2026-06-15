@@ -1,4 +1,4 @@
-import StudentCard from '@/components/studentcard/StudentCard';
+import StudentCard from '@/components/cards/StudentCard';
 import React, { useEffect, useState } from 'react';
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import ProfilePanel from "@/components/profilepanel/ProfilePanel";

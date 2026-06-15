@@ -1,7 +1,7 @@
 import Header from "@/components/header/Header";
 import ProfilePanel from "@/components/profilepanel/ProfilePanel";
 import SidebarMain from "@/components/sidebar/Sidebar";
-import StudentCard from "@/components/studentcard/StudentCard";
+import StudentCard from "@/components/cards/StudentCard";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import React, { useEffect, useState } from "react";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
