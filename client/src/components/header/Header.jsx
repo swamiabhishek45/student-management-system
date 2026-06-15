@@ -5,18 +5,15 @@ import { Plus } from "lucide-react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Input } from "../ui/input";
 import StudentInputModal from "./StudentInputModal";
 import TeacherInputModal from "./TeacherInputModal";
 import CourseInputModal from "./CourseInputModal";
 import EnrollmentInputModal from "./EnrollmentInputModal";
 
-const Header = ({ activeTab, onAddClick, onStudentAdded }) => {
+const Header = ({ activeTab, onAddClick, onStudentAdded, onTeacherAdded }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const getHeaderInfo = () => {
@@ -69,7 +66,11 @@ const Header = ({ activeTab, onAddClick, onStudentAdded }) => {
               )}
 
               {activeTab === "teachers" && (
-                <TeacherInputModal />
+                <TeacherInputModal
+                  onTeacherAdd={() => {setIsOpen(false); 
+                    if (onTeacherAdded) onTeacherAdded();
+                  }}
+                />
               )}
 
               {activeTab === "courses" && (

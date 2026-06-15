@@ -1,25 +1,34 @@
 import Header from "@/components/header/Header";
+
+
+
 import ProfilePanel from "@/components/profilepanel/ProfilePanel";
 import SidebarMain from "@/components/sidebar/Sidebar";
 import StudentCard from "@/components/cards/StudentCard";
 import { SidebarProvider } from "@/components/ui/sidebar";
+
+
 import React, { useEffect, useState } from "react";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
+
 import StudentPage from "./StudentPage";
 import TeachersPage from "./TechersPage";
 import CoursesPage from "./CoursesPage";
 import EnrollmentsPage from "./EnrollmentsPage";
+
 import { BookOpen, ClipboardList, User, Users } from "lucide-react";
 import { getStudents as fetchStudents } from "../api/studentApi";
 import { getEnrollments } from "../api/enrollmentApi";
 
+import { getTeachers as fetchTeachers } from "../api/teacherApi";
 const Dashboard = () => {
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("dashboard");
-
-
+  
+  const [teachers, setTeachers] = useState([]);
+  
 
   const getStudents = async () => {
     try {
@@ -46,13 +55,18 @@ const Dashboard = () => {
     }
   };
 
-  const fetchCounts = async () => {
-
+  const getTeachers = async () => {
+    try {
+      const response = await fetchTeachers();
+      setTeachers(response.data.teachers);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
     getStudents();
-    fetchCounts();
+    getTeachers();
   }, []);
 
   const handleViewProfile = (student) => {
@@ -68,7 +82,7 @@ const Dashboard = () => {
         <SidebarMain activeTab={activeTab} setActiveTab={setActiveTab} />
         <main className="flex-1 p-6 ">
           {/* header  */}
-          <Header activeTab={activeTab} onStudentAdded={getStudents} />
+          <Header activeTab={activeTab} onStudentAdded={getStudents} onTeacherAdded={getTeachers} />
 
           {/* content layout  */}
           <div className="mt-6 flex-1">
@@ -83,7 +97,7 @@ const Dashboard = () => {
             )}
 
             {activeTab === "teachers" && (
-              <TeachersPage />
+              <TeachersPage teachers={teachers} onRefresh={getTeachers} />
             )}
 
             {activeTab === "courses" && (

@@ -16,7 +16,7 @@ export const createTeacher = async (req, res) => {
 
         return res.status(201).json({success: true, teacher});
     } catch (error) {
-        res.json(500).json({success:false, error: error.message})
+        res.status(500).json({success:false, error: error.message})
     }
 }
 
@@ -26,7 +26,7 @@ export const getAllTeachers = async (req, res) => {
 
         return res.status(200).json({success: true, teachers})
     } catch (error) {
-        return res.json(500).json({success: false, error: error.message})
+        return res.status(500).json({success: false, error: error.message})
     }
 }
 
@@ -41,7 +41,7 @@ export const getTeacherById = async(req, res) => {
 
         return res.status(200).json({success: true, teacher})
     } catch (error) {
-        res.json(500).json({success:false, error: error.message})
+        res.status(500).json({success:false, error: error.message})
     }
 }
 
@@ -50,7 +50,7 @@ export const updateTeacher = async (req, res) => {
         const {id} = req.params;
         const {name, email, subject} = req.body;
 
-        const teacher = await Teacher.findByIdAndUpdate(id, {name, email, subject});
+        const teacher = await Teacher.findByIdAndUpdate(id, {name, email, subject}, { new: true });
         
         if(!teacher){
             return res.status(404).json({success: false, message:"teacher not found"})
@@ -58,7 +58,7 @@ export const updateTeacher = async (req, res) => {
 
         return res.status(200).json({success: true, teacher});
     } catch (error) {
-        res.json(500).json({success:false, error: error.message})
+        res.status(500).json({success:false, error: error.message})
     }
 }
 
@@ -73,6 +73,6 @@ export const deleteTeacher = async (req, res) => {
 
         return res.status(200).json({success: true, teacher, message: "teacher deleted successfully"});
     } catch (error) {
-        res.json(500).json({success: false, error: error.message});
+        res.status(500).json({success: false, error: error.message});
     }
 }

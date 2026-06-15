@@ -2,12 +2,10 @@ import React from 'react'
 import {
   Card,
   CardContent,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { Button } from '../ui/button';
 
-const TeacherCard = ({teacher}) => {
+const TeacherCard = ({teacher, onEdit, onDelete}) => {
   return (
 
     // use shadcn Card componet and build teacher card with dynamic data mapping
@@ -28,15 +26,22 @@ const TeacherCard = ({teacher}) => {
 
  <div className="my-5 border-t" />
 
-  {/* Courses */}
-        <div className="text-center">
-          <p className="text-sm text-slate-400 uppercase tracking-wider">
-            Courses Taught
-          </p>
-
-          <p className="mt-1 text-2xl font-semibold">
-            {/* {teacher.courses.length} */}1
-          </p>
+        {/* buttons edit/delete */}
+        <div className="flex justify-center gap-3 mt-4">
+          <Button 
+            variant="outline" 
+            className="cursor-pointer"
+            onClick={() => onEdit && onEdit(teacher)}
+          >
+            Edit
+          </Button>
+          <Button 
+            variant="destructive" 
+            className="bg-red-600 hover:bg-red-700 text-white cursor-pointer"
+            onClick={() => onDelete && onDelete(teacher._id)}
+          >
+            Delete
+          </Button>
         </div>
       </CardContent>
     </Card>
