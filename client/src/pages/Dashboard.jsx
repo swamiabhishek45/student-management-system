@@ -74,7 +74,7 @@ const Dashboard = () => {
           <div className="mt-6 flex-1">
             {activeTab === "dashboard" && (
               <>
-                dashbiard
+                Dashboard
               </>
             )}
 
@@ -109,6 +109,7 @@ const Dashboard = () => {
               <ProfilePanel
                 student={selectedStudent}
                 onClose={() => setIsDrawerOpen(false)}
+                onRefresh={getStudents}
               />
             )}
           </DrawerContent>

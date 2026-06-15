@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
-import { createStudent } from '../../api/studentApi';
+import { createStudent, updateStudent } from '../../api/studentApi';
 
-const StudentInputModal = ({ onStudentAdded }) => {
+const StudentInputModal = ({ student, onStudentAdded }) => {
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
-    const [address, setAddress] = useState('');
-    const [grade, setGrade] = useState('');
+    const [name, setName] = useState(student ? student.name : '');
+    const [email, setEmail] = useState(student ? student.email : '');
+    const [phone, setPhone] = useState(student ? student.phone : '');
+    const [address, setAddress] = useState(student ? student.address : '');
+    const [grade, setGrade] = useState(student ? student.grade : '');
 
     const [error, setError] = useState('');
 
@@ -18,22 +18,19 @@ const StudentInputModal = ({ onStudentAdded }) => {
         e.preventDefault();
         setError('');
 
-
         if (!name || !email || !phone || !address || !grade) {
             setError('Please fill in all fields');
             return;
         }
 
-
-
         try {
-            await createStudent({
-                name,
-                email,
-                phone,
-                address,
-                grade,
-            });
+            if (student && student._id) {
+                await updateStudent(student._id, {  name, email, phone, address,grade,
+                });
+            } else {
+                await createStudent({ name,email,phone, address,grade,
+                })
+            }
 
             setName('');
             setEmail('');
@@ -45,12 +42,12 @@ const StudentInputModal = ({ onStudentAdded }) => {
                 onStudentAdded();
             }
         } catch (err) {
+            setError('Failed to connect to the server');
         } 
     };
 
     return (
         <form onSubmit={handleSubmit} className='flex flex-col gap-4 p-2'>
-            <h3 className="text-lg font-bold text-slate-800 text-center">Add Student</h3>
 
             {error && <p className="text-sm text-red-500 text-center">{error}</p>}
 

@@ -1,3 +1,19 @@
+TEACHER    
+ - create
+ - edit
+ - delete
+
+COURSE   
+ - create
+ - edit
+ - delete
+
+ENROLLMENT   
+ - create
+ - edit
+ - delete
+ - view
+
 ## main fout models
 
 Student:
