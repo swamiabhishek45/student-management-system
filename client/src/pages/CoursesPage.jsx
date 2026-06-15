@@ -1,5 +1,6 @@
 import CourseCard from '@/components/cards/CourseCard'
 import React, { useEffect, useState } from 'react'
+import { getCourses as fetchCourses } from '../api/courseApi'
 
 const CoursesPage = () => {
 
@@ -7,12 +8,8 @@ const CoursesPage = () => {
 
   const getCourses = async () => {
     try {
-      const coursesResponse = await fetch(
-        "http://localhost:5000/api/courses",
-      );
-
-      const coursesData = await coursesResponse.json();
-      setCourses(coursesData);
+      const coursesResponse = await fetchCourses();
+      setCourses(coursesResponse.data);
     } catch (error) {
       console.log(error);
     }

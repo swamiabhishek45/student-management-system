@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import TeacherCard from '../components/cards/TeacherCard'
+import { getTeachers as fetchTeachers } from '../api/teacherApi'
+
 const TeachersPage = ({ onViewProfile }) => {
 
   const [teachers, setTeachers] = useState([])
 
   const getTeachers = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/teachers")
-      const data = await response.json()
-      setTeachers(data.teachers)
+      const response = await fetchTeachers();
+      setTeachers(response.data.teachers);
     } catch (error) {
       console.log(error)
     }

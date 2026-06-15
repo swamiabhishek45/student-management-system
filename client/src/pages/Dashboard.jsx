@@ -10,6 +10,8 @@ import TeachersPage from "./TechersPage";
 import CoursesPage from "./CoursesPage";
 import EnrollmentsPage from "./EnrollmentsPage";
 import { BookOpen, ClipboardList, User, Users } from "lucide-react";
+import { getStudents as fetchStudents } from "../api/studentApi";
+import { getEnrollments } from "../api/enrollmentApi";
 
 const Dashboard = () => {
   const [students, setStudents] = useState([]);
@@ -21,15 +23,11 @@ const Dashboard = () => {
 
   const getStudents = async () => {
     try {
-      const studentsResponse = await fetch(
-        "http://localhost:5000/api/students",
-      );
-      const studentsData = await studentsResponse.json();
+      const studentsResponse = await fetchStudents();
+      const studentsData = studentsResponse.data;
 
-      const enrollmentsResponse = await fetch(
-        "http://localhost:5000/api/enrollments",
-      );
-      const enrollmentsData = await enrollmentsResponse.json();
+      const enrollmentsResponse = await getEnrollments();
+      const enrollmentsData = enrollmentsResponse.data;
 
       const updatedStudents = [];
       studentsData.forEach((student) => {

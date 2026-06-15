@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
+import { createStudent } from '../../api/studentApi';
 
 const StudentInputModal = ({ onStudentAdded }) => {
 
@@ -11,7 +12,6 @@ const StudentInputModal = ({ onStudentAdded }) => {
     const [grade, setGrade] = useState('');
 
     const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false);
 
 
     const handleSubmit = async (e) => {
@@ -24,10 +24,10 @@ const StudentInputModal = ({ onStudentAdded }) => {
             return;
         }
 
-        setLoading(true);
+
 
         try {
-            const response = await axios.post("http://localhost:5000/api/students", {
+            await createStudent({
                 name,
                 email,
                 phone,
@@ -35,24 +35,17 @@ const StudentInputModal = ({ onStudentAdded }) => {
                 grade,
             });
 
-            const data = await response.json();
+            setName('');
+            setEmail('');
+            setPhone('');
+            setAddress('');
+            setGrade('');
 
-            if (response.ok) {
-                setName('')
-                setEmail('');
-                setPhone('')
-                setAddress('')
-                setGrade('');
-
-                if (onStudentAdded) {
-                    onStudentAdded();
-                }
-            } else {
-                setError(data.message || 'Something went wrong');
+            if (onStudentAdded) {
+                onStudentAdded();
             }
         } catch (err) {
-            setError('Failed to connect to the server');
-        }
+        } 
     };
 
     return (
