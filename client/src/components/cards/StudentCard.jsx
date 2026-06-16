@@ -2,23 +2,14 @@ import React from 'react'
 import {
   Card,
   CardContent,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { Button } from '../ui/button';
-import { MoreVertical } from 'lucide-react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
 const StudentCard = ({ student, onViewProfile }) => {
   return (
    <Card className="w-full max-w-xs border shadow-sm rounded-xl bg-white text-slate-800">
-      <CardContent className="p-6">
-      {/* top section  */}
-      <div className='flex justify-end'>
-        <Button variant="ghost" size="icon">
-          <MoreVertical size={18}/>
-        </Button>
-      </div>
+      <CardContent className="p-6 mt-5">
 
       {/* profile image  */}
 

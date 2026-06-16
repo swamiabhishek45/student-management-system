@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "../ui/button";
-import { Plus } from "lucide-react";
+import { Plus, Menu } from "lucide-react";
+import { useSidebar } from "@/components/ui/sidebar";
 
 import {
   Dialog,
@@ -15,6 +16,7 @@ import EnrollmentInputModal from "./EnrollmentInputModal";
 
 const Header = ({ activeTab, onAddClick, onStudentAdded, onTeacherAdded, onCourseAdded, teachers }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { toggleSidebar } = useSidebar();
 
   const getHeaderInfo = () => {
     switch (activeTab) {
@@ -37,8 +39,19 @@ const Header = ({ activeTab, onAddClick, onStudentAdded, onTeacherAdded, onCours
 
   return (
     <div className="flex items-center justify-between border-b pb-5">
-      <div className="text-2xl font-bold">
-        <h1 className="text-2xl font-bold ">{title}</h1>
+      <div className="flex items-center gap-3">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="md:hidden cursor-pointer -ml-2"
+          onClick={toggleSidebar}
+        >
+          <Menu className="h-6 w-6 text-slate-700" />
+          {/* <span className="sr-only">Toggle Menu</span> */}
+        </Button>
+        <div className="text-2xl font-bold">
+          <h1 className="text-2xl font-bold ">{title}</h1>
+        </div>
       </div>
 
       {buttonText && (

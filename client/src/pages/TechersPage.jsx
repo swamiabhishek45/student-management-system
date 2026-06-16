@@ -35,7 +35,7 @@ const TeachersPage = ({ teachers, onRefresh }) => {
   return (
     <div>
       <div className='grid gap-6 transition-all duration-300 
-                  grid-cols-1 md:grid-cols-2 xl:grid-cols-4'>
+                  grid-cols-1 md:grid-cols-2 xl:grid-cols-4 justify-items-center md:justify-items-start'>
         {teachers.map((teacher) => (
           <TeacherCard 
             key={teacher._id} 

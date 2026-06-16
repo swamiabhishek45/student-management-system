@@ -21,7 +21,7 @@ const StudentPage = ({ students, onViewProfile }) => {
       <div className="w-full">
         <div
           className="grid gap-6 transition-all duration-300 
-                  grid-cols-1 md:grid-cols-2 xl:grid-cols-4"
+                  grid-cols-1 md:grid-cols-2 xl:grid-cols-4 justify-items-center md:justify-items-start"
         >
           {students.map((std) => (
             <StudentCard

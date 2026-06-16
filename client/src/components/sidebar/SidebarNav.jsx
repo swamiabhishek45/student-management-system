@@ -4,6 +4,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuSubItem,
+  useSidebar,
 } from "../ui/sidebar";
 import { BookOpen, ClipboardList, Home, User, Users } from "lucide-react";
 
@@ -16,6 +17,8 @@ const MENU_ITEMS = [
 ];
 
 const SidebarNav = ({ activeTab, setActiveTab }) => {
+  const { isMobile, setOpenMobile } = useSidebar();
+
   return (
     <SidebarGroup className="px-3">
       <SidebarMenu className="gap-2">
@@ -31,6 +34,9 @@ const SidebarNav = ({ activeTab, setActiveTab }) => {
                 onClick={(e) => {
                   e.preventDefault();
                   setActiveTab(item.id);
+                  if (isMobile) {
+                    setOpenMobile(false);
+                  }
                 }}
               >
                 <a
