@@ -69,12 +69,9 @@ const ProfilePanel = ({ student, onClose, onRefresh }) => {
               phone={phone} 
               address={address} 
             />
-            <EnrolledCourses courses={courses} />
           </>
         ) : (
-          <div className="text-center text-slate-400 text-sm py-12">
-            No additional enrollments to display.
-          </div>
+          <EnrolledCourses courses={courses} />
         )}
       </div>
       <ProfileActions onEdit={() => setIsEditing(true)} onDelete={handleDelete} />
