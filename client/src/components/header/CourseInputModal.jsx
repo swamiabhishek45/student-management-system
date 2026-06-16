@@ -7,7 +7,7 @@ const CourseInputModal = ({ course, teachers, onCourseSaved }) => {
   const [name, setName] = useState(course ? course.name : '');
   const [code, setCode] = useState(course ? course.code : '');
   const [credits, setCredits] = useState(course ? course.credits : '');
-  
+  const [error, setError] = useState('');
   
   const [teacherId, setTeacherId] = useState( course && course.teacherId 
       ? (course.teacherId._id || course.teacherId) 
@@ -15,6 +15,12 @@ const CourseInputModal = ({ course, teachers, onCourseSaved }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!name.trim() || !code.trim() || !credits || !teacherId) {
+      setError('All fields are required.');
+      return;
+    }
+    setError('');
+
     const courseData = { name, code, credits: Number(credits), teacherId };
     try {
       if (course && course._id) {
@@ -26,12 +32,14 @@ const CourseInputModal = ({ course, teachers, onCourseSaved }) => {
         onCourseSaved();
       }
     } catch (err) {
+      setError(err.response?.data?.message || 'Failed to save course');
       console.log('Failed to save course:', err);
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-2">
+      {error && <p className="text-red-500 text-sm text-center">{error}</p>}
       <Input placeholder="Course Name" value={name} onChange={(e) => setName(e.target.value)}
       />
       <Input placeholder="Course Code" value={code} onChange={(e) => setCode(e.target.value)}
