@@ -27,7 +27,7 @@ const Header = ({ activeTab, onAddClick, onStudentAdded, onTeacherAdded, onCours
       case "teachers":
         return { title: "Teachers", buttonText: "Add Teacher" };
       case "enrollments":
-        return { title: "Enrollments", buttonText: "Enroll Student" };
+        return { title: "Enrollments"};
       default:
         return { title: "SMS", buttonText: null };
     }

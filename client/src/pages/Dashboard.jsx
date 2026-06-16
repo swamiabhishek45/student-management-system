@@ -1,12 +1,8 @@
 import Header from "@/components/header/Header";
 
-
-
 import ProfilePanel from "@/components/profilepanel/ProfilePanel";
 import SidebarMain from "@/components/sidebar/Sidebar";
-import StudentCard from "@/components/cards/StudentCard";
 import { SidebarProvider } from "@/components/ui/sidebar";
-
 
 import React, { useEffect, useState } from "react";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
@@ -48,6 +44,7 @@ const Dashboard = () => {
         updatedStudents.push({
           ...student,
           courses: studentEnrollments.length,
+          coursesList: studentEnrollments.map((e) => e.courseId).filter(Boolean),
         });
       });
 
@@ -117,7 +114,11 @@ const Dashboard = () => {
             )}
 
             {activeTab === "enrollments" && (
-              <EnrollmentsPage />
+              <EnrollmentsPage 
+                students={students} 
+                courses={courses} 
+                onRefresh={getStudents} 
+              />
             )}
           </div>
 
