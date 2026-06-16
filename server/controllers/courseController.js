@@ -89,6 +89,9 @@ export const deleteCourse = async (req, res) => {
             return res.status(404).json({message: "course not found"})
         }
 
+        // Delete all enrollments associated with this course
+        await Enrollment.deleteMany({ courseId: req.params.id });
+
         res.status(200).json({message: "course deleted successfully"})
     } catch (error) {
         res.status(500).json({message: "error in deleting course", error: error.message})

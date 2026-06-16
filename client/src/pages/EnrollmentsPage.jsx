@@ -3,7 +3,7 @@ import { getEnrollments, deleteEnrollment } from "../api/enrollmentApi";
 import EnrollmentInputModal from "../components/header/EnrollmentInputModal";
 import EnrollmentList from "./EnrollmentList";
 
-export default function EnrollmentsPage({ students, courses }) {
+export default function EnrollmentsPage({ students, courses, onRefresh }) {
   const [enrollments, setEnrollments] = useState([]);
 
   const fetchEnrollments = async () => {
@@ -21,12 +21,14 @@ export default function EnrollmentsPage({ students, courses }) {
 
   const handleEnrollSuccess = () => {
     fetchEnrollments();
+    if (onRefresh) onRefresh();
   };
 
   const handleUnenroll = async (enrollmentId, studentId, courseId) => {
     try {
       await deleteEnrollment(enrollmentId, { studentId, courseId });
       fetchEnrollments();
+      if (onRefresh) onRefresh();
     } catch (err) {
       console.log("Failed to unenroll student");
     }

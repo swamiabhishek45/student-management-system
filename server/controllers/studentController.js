@@ -1,4 +1,5 @@
 import {Student} from "../models/student.js";
+import {Enrollment} from "../models/enrollment.js";
 
 
 export const getAllStudents = async (req, res) => {
@@ -76,8 +77,11 @@ export const deleteStudent = async (req, res) => {
         const student = await Student.findByIdAndDelete(req.params.id);
 
         if(!student){
-            res.status(404).json({message: "Student not found"})
+            return res.status(404).json({message: "Student not found"})
         }
+
+        // Delete all enrollments associated with this student
+        await Enrollment.deleteMany({ studentId: req.params.id });
 
         res.status(200).json({student, message: "student deleted successfully"});
     } catch (error) {

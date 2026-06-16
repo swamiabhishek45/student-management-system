@@ -12,7 +12,6 @@ import TeachersPage from "./TechersPage";
 import CoursesPage from "./CoursesPage";
 import EnrollmentsPage from "./EnrollmentsPage";
 
-import { BookOpen, ClipboardList, User, Users } from "lucide-react";
 import { getStudents as fetchStudents } from "../api/studentApi";
 import { getEnrollments } from "../api/enrollmentApi";
 import { getTeachers as fetchTeachers } from "../api/teacherApi";
@@ -72,10 +71,14 @@ const Dashboard = () => {
     }
   };
 
-  useEffect(() => {
+  const refreshAllData = () => {
     getStudents();
     getTeachers();
     getCourses();
+  };
+
+  useEffect(() => {
+    refreshAllData();
   }, []);
 
   const handleViewProfile = (student) => {
@@ -91,7 +94,7 @@ const Dashboard = () => {
         <SidebarMain activeTab={activeTab} setActiveTab={setActiveTab} />
         <main className="flex-1 p-6 ">
           {/* header  */}
-          <Header activeTab={activeTab} onStudentAdded={getStudents} onTeacherAdded={getTeachers} onCourseAdded={getCourses} teachers={teachers} />
+          <Header activeTab={activeTab} onStudentAdded={refreshAllData} onTeacherAdded={refreshAllData} onCourseAdded={refreshAllData} teachers={teachers} />
 
           {/* content layout  */}
           <div className="mt-6 flex-1">
@@ -106,18 +109,18 @@ const Dashboard = () => {
             )}
 
             {activeTab === "teachers" && (
-              <TeachersPage teachers={teachers} onRefresh={getTeachers} />
+              <TeachersPage teachers={teachers} onRefresh={refreshAllData} />
             )}
 
             {activeTab === "courses" && (
-              <CoursesPage courses={courses} onRefresh={getCourses} teachers={teachers} />
+              <CoursesPage courses={courses} onRefresh={refreshAllData} teachers={teachers} />
             )}
 
             {activeTab === "enrollments" && (
               <EnrollmentsPage 
                 students={students} 
                 courses={courses} 
-                onRefresh={getStudents} 
+                onRefresh={refreshAllData} 
               />
             )}
           </div>
@@ -136,7 +139,7 @@ const Dashboard = () => {
               <ProfilePanel
                 student={selectedStudent}
                 onClose={() => setIsDrawerOpen(false)}
-                onRefresh={getStudents}
+                onRefresh={refreshAllData}
               />
             )}
           </DrawerContent>

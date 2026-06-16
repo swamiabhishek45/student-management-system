@@ -1,4 +1,6 @@
 import {Teacher} from '../models/teacher.js';
+import {Course} from '../models/course.js';
+import {Enrollment} from '../models/enrollment.js';
 
 export const createTeacher = async (req, res) => {
     try {
@@ -70,6 +72,16 @@ export const deleteTeacher = async (req, res) => {
         if(!teacher){
             return res.status(404).json({success: false, message:"teacher not found"})
         }
+
+        // Find all courses associated with this teacher
+        const courses = await Course.find({ teacherId: id });
+        const courseIds = courses.map(c => c._id);
+
+        // Delete all enrollments for these courses
+        await Enrollment.deleteMany({ courseId: { $in: courseIds } });
+
+        // Delete all courses taught by this teacher
+        await Course.deleteMany({ teacherId: id });
 
         return res.status(200).json({success: true, teacher, message: "teacher deleted successfully"});
     } catch (error) {
