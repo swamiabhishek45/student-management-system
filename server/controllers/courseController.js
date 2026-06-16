@@ -62,7 +62,7 @@ export const updateCourse = async (req, res) => {
     try {
         const {teacherId} = req.body;
 
-        if(!teacherId){
+        if(teacherId){
             const teacher = await Teacher.findById(teacherId);
             if(!teacher){
                 return res.status(404).json({success: false, message: "Teacher not found"})
@@ -70,7 +70,7 @@ export const updateCourse = async (req, res) => {
         
         }
 
-        const course = await Course.findByIdAndUpdate(req.params.id, req.body);
+        const course = await Course.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
         if(!course){
           return res.status(404).json({message: "Course not found"});  
@@ -83,7 +83,7 @@ export const updateCourse = async (req, res) => {
 };
 export const deleteCourse = async (req, res) => {
     try {
-        const course  = await Course.findOneAndDelete(req.params.id);
+        const course  = await Course.findByIdAndDelete(req.params.id);
 
         if (!course){
             return res.status(404).json({message: "course not found"})

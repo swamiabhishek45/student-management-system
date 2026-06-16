@@ -1,29 +1,63 @@
+import React, { useState } from 'react'
 import CourseCard from '@/components/cards/CourseCard'
-import React, { useEffect, useState } from 'react'
-import { getCourses as fetchCourses } from '../api/courseApi'
+import { deleteCourse } from '../api/courseApi'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import CourseInputModal from '../components/header/CourseInputModal'
 
-const CoursesPage = () => {
+const CoursesPage = ({ courses, onRefresh, teachers }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState(null);
 
-  const [courses, setCourses] = useState([]);
-
-  const getCourses = async () => {
+  const handleDelete = async (id) => {
     try {
-      const coursesResponse = await fetchCourses();
-      setCourses(coursesResponse.data);
+      await deleteCourse(id);
+      if (onRefresh) {
+        onRefresh();
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => {
-    getCourses();
-  }, []);
+  const handleEdit = (course) => {
+    setSelectedCourse(course);
+    setIsEditing(true);
+  };
+
   return (
     <div className='px-3 py-3'>
-      
-      <CourseCard courses={courses} />
+      <CourseCard 
+        courses={courses} 
+        onEdit={handleEdit} 
+        onDelete={handleDelete} 
+      />
+
+      <Dialog open={isEditing} onOpenChange={setIsEditing}>
+        <DialogContent>
+          <DialogHeader className="mt-10">
+            <DialogTitle>Edit Course Info</DialogTitle>
+          </DialogHeader>
+          {selectedCourse && (
+            <CourseInputModal 
+              course={selectedCourse} 
+              teachers={teachers}
+              onCourseSaved={() => {
+                setIsEditing(false);
+                if (onRefresh) {
+                  onRefresh();
+                }
+              }}
+            />
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
 
-export default CoursesPage
+export default CoursesPage

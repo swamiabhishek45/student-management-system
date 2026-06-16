@@ -13,7 +13,7 @@ import TeacherInputModal from "./TeacherInputModal";
 import CourseInputModal from "./CourseInputModal";
 import EnrollmentInputModal from "./EnrollmentInputModal";
 
-const Header = ({ activeTab, onAddClick, onStudentAdded, onTeacherAdded }) => {
+const Header = ({ activeTab, onAddClick, onStudentAdded, onTeacherAdded, onCourseAdded, teachers }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const getHeaderInfo = () => {
@@ -74,7 +74,13 @@ const Header = ({ activeTab, onAddClick, onStudentAdded, onTeacherAdded }) => {
               )}
 
               {activeTab === "courses" && (
-               <CourseInputModal />
+                <CourseInputModal
+                  teachers={teachers}
+                  onCourseSaved={() => {
+                    setIsOpen(false);
+                    if (onCourseAdded) onCourseAdded();
+                  }}
+                />
               )}
 
               {activeTab === "enrollments" && (

@@ -19,8 +19,9 @@ import EnrollmentsPage from "./EnrollmentsPage";
 import { BookOpen, ClipboardList, User, Users } from "lucide-react";
 import { getStudents as fetchStudents } from "../api/studentApi";
 import { getEnrollments } from "../api/enrollmentApi";
-
 import { getTeachers as fetchTeachers } from "../api/teacherApi";
+import { getCourses as fetchCourses } from "../api/courseApi";
+
 const Dashboard = () => {
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
@@ -28,6 +29,7 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
   
   const [teachers, setTeachers] = useState([]);
+  const [courses, setCourses] = useState([]);
   
 
   const getStudents = async () => {
@@ -64,9 +66,19 @@ const Dashboard = () => {
     }
   };
 
+  const getCourses = async () => {
+    try {
+      const response = await fetchCourses();
+      setCourses(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getStudents();
     getTeachers();
+    getCourses();
   }, []);
 
   const handleViewProfile = (student) => {
@@ -82,7 +94,7 @@ const Dashboard = () => {
         <SidebarMain activeTab={activeTab} setActiveTab={setActiveTab} />
         <main className="flex-1 p-6 ">
           {/* header  */}
-          <Header activeTab={activeTab} onStudentAdded={getStudents} onTeacherAdded={getTeachers} />
+          <Header activeTab={activeTab} onStudentAdded={getStudents} onTeacherAdded={getTeachers} onCourseAdded={getCourses} teachers={teachers} />
 
           {/* content layout  */}
           <div className="mt-6 flex-1">
@@ -101,7 +113,7 @@ const Dashboard = () => {
             )}
 
             {activeTab === "courses" && (
-              <CoursesPage />
+              <CoursesPage courses={courses} onRefresh={getCourses} teachers={teachers} />
             )}
 
             {activeTab === "enrollments" && (
