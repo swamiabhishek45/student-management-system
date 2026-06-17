@@ -40,7 +40,7 @@ const CoursesPage = ({ courses, onRefresh, teachers }) => {
       <Dialog open={isEditing} onOpenChange={setIsEditing}>
         <DialogContent>
           <DialogHeader className="mt-10">
-            <DialogTitle>Edit Course Info</DialogTitle>
+            <DialogTitle className={"text-center"}>Edit Course Info</DialogTitle>
           </DialogHeader>
           {selectedCourse && (
             <CourseInputModal 
@@ -60,4 +60,4 @@ const CoursesPage = ({ courses, onRefresh, teachers }) => {
   )
 }
 
-export default CoursesPage
+export default CoursesPage
