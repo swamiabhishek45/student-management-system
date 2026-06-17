@@ -35,7 +35,9 @@ export default function EnrollmentList({ enrollments, onUnenroll }) {
                 <TableCell>{e.courseId?.code}</TableCell>
                 <TableCell>
                   <Button
-                    onClick={() => onUnenroll(e._id, e.studentId?._id, e.courseId?._id)}
+                    onClick={() =>
+                      onUnenroll(e._id, e.studentId?._id, e.courseId?._id)
+                    }
                     className="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded text-sm cursor-pointer"
                   >
                     Unenroll

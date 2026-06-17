@@ -22,10 +22,9 @@ const Dashboard = () => {
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("dashboard");
-  
+
   const [teachers, setTeachers] = useState([]);
   const [courses, setCourses] = useState([]);
-  
 
   const getStudents = async () => {
     try {
@@ -43,7 +42,9 @@ const Dashboard = () => {
         updatedStudents.push({
           ...student,
           courses: studentEnrollments.length,
-          coursesList: studentEnrollments.map((e) => e.courseId).filter(Boolean),
+          coursesList: studentEnrollments
+            .map((e) => e.courseId)
+            .filter(Boolean),
         });
       });
 
@@ -94,18 +95,23 @@ const Dashboard = () => {
         <SidebarMain activeTab={activeTab} setActiveTab={setActiveTab} />
         <main className="flex-1 p-6 ">
           {/* header  */}
-          <Header activeTab={activeTab} onStudentAdded={refreshAllData} onTeacherAdded={refreshAllData} onCourseAdded={refreshAllData} teachers={teachers} />
+          <Header
+            activeTab={activeTab}
+            onStudentAdded={refreshAllData}
+            onTeacherAdded={refreshAllData}
+            onCourseAdded={refreshAllData}
+            teachers={teachers}
+          />
 
           {/* content layout  */}
           <div className="mt-6 flex-1">
-            {activeTab === "dashboard" && (
-              <>
-                Dashboard
-              </>
-            )}
+            {activeTab === "dashboard" && <>Dashboard</>}
 
             {activeTab === "students" && (
-              <StudentPage students={students} onViewProfile={handleViewProfile} />
+              <StudentPage
+                students={students}
+                onViewProfile={handleViewProfile}
+              />
             )}
 
             {activeTab === "teachers" && (
@@ -113,18 +119,21 @@ const Dashboard = () => {
             )}
 
             {activeTab === "courses" && (
-              <CoursesPage courses={courses} onRefresh={refreshAllData} teachers={teachers} />
+              <CoursesPage
+                courses={courses}
+                onRefresh={refreshAllData}
+                teachers={teachers}
+              />
             )}
 
             {activeTab === "enrollments" && (
-              <EnrollmentsPage 
-                students={students} 
-                courses={courses} 
-                onRefresh={refreshAllData} 
+              <EnrollmentsPage
+                students={students}
+                courses={courses}
+                onRefresh={refreshAllData}
               />
             )}
           </div>
-
         </main>
 
         {/* profilepanel  */}

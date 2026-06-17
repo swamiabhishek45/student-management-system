@@ -18,18 +18,21 @@ const StudentInputModal = ({ student, onStudentAdded }) => {
         e.preventDefault();
         setError('');
 
-        if (!name || !email || !phone || !address || !grade) {
-            setError('Please fill in all fields');
+        if (!name.trim() || !email.trim() || !phone.toString().trim() || !address.trim() || !grade.trim()) {
+            setError('All fields are required.');
+            return;
+        }
+
+        if (isNaN(Number(phone))) {
+            setError('Phone must be a valid number.');
             return;
         }
 
         try {
             if (student && student._id) {
-                await updateStudent(student._id, {  name, email, phone, address,grade,
-                });
+                await updateStudent(student._id, {  name, email, phone, address, grade });
             } else {
-                await createStudent({ name,email,phone, address,grade,
-                })
+                await createStudent({ name, email, phone, address, grade });
             }
 
             setName('');
@@ -42,7 +45,7 @@ const StudentInputModal = ({ student, onStudentAdded }) => {
                 onStudentAdded();
             }
         } catch (err) {
-            setError('Failed to connect to the server');
+            setError(err.response?.data?.message || 'Failed to save student. Please try again.');
         } 
     };
 
@@ -59,6 +62,7 @@ const StudentInputModal = ({ student, onStudentAdded }) => {
                 value={email} onChange={(e) => setEmail(e.target.value)}
             />
             <Input placeholder="phone"
+                type="number"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
             />
