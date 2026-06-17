@@ -4,6 +4,31 @@ A full-stack web application for managing students, teachers, courses, and enrol
 
 ---
 
+## Screenshots
+
+### Core Management Pages
+
+| Students Page | Teachers Page |
+| :---: | :---: |
+| ![Students Page](client/public/screen-shots/studentpage.png) | ![Teachers Page](client/public/screen-shots/teacherpage.png) |
+
+| Courses Page | Enrollments Page |
+| :---: | :---: |
+| ![Courses Page](client/public/screen-shots/coursepage.png) | ![Enrollments Page](client/public/screen-shots/enrollmentspage.png) |
+
+### Components & Responsiveness
+
+| Student Profile Panel | Add/Edit Form Modal |
+| :---: | :---: |
+| ![Student Profile Panel](client/public/screen-shots/studentpanel.png) | ![Form Modal](client/public/screen-shots/form-modal.png) |
+
+| Responsive Enrollments | Responsive Sidebar |
+| :---: | :---: |
+| ![Responsive Enrollments](client/public/screen-shots/enrollment-res.png) | ![Responsive Sidebar](client/public/screen-shots/sidebar-responsive.png) |
+
+---
+
+
 ## Tech Stack
 
 **Frontend**
