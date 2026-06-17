@@ -21,7 +21,7 @@ const Dashboard = () => {
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState("dashboard");
+  const [activeTab, setActiveTab] = useState("students");
 
   const [teachers, setTeachers] = useState([]);
   const [courses, setCourses] = useState([]);
@@ -105,7 +105,7 @@ const Dashboard = () => {
 
           {/* content layout  */}
           <div className="mt-6 flex-1">
-            {activeTab === "dashboard" && <>Dashboard</>}
+            {/* {activeTab === "dashboard" && <>Dashboard</>} */}
 
             {activeTab === "students" && (
               <StudentPage

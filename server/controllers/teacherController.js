@@ -58,6 +58,13 @@ export const updateTeacher = async (req, res) => {
     const { id } = req.params;
     const { name, email, subject } = req.body;
 
+    const existingTeacher = await Teacher.findOne({ email });
+    if (existingTeacher && existingTeacher._id !== id) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Teacher Email must be unique" });
+    }     
+
     const teacher = await Teacher.findByIdAndUpdate(
       id,
       { name, email, subject },

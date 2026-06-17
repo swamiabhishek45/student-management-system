@@ -12,6 +12,7 @@ const SidebarLogo = () => {
             <span className=' font-bold text-2xl text-orange-600 tracking-wider'>
                 SMS
             </span>
+            <p className='text-xs text-gray-500 tracking-wider'>Student Management System</p>
         </div>
     </div>
   )

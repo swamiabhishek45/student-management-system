@@ -20,8 +20,8 @@ const Header = ({ activeTab, onAddClick, onStudentAdded, onTeacherAdded, onCours
 
   const getHeaderInfo = () => {
     switch (activeTab) {
-      case "dashboard":
-        return { title: "Dashboard", buttonText: null };
+      // case "dashboard":
+      //   return { title: "Dashboard", buttonText: null };
       case "students":
         return { title: "Students", buttonText: "Add Student" };
       case "courses":

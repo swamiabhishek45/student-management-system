@@ -9,7 +9,7 @@ import {
 import { BookOpen, ClipboardList, Home, User, Users } from "lucide-react";
 
 const MENU_ITEMS = [
-  { id: "dashboard", label: "Dashboard", icon: Home, isActive: true },
+  // { id: "dashboard", label: "Dashboard", icon: Home, isActive: true },
   { id: "students", label: "Students", icon: User },
   { id: "teachers", label: "Teachers", icon: Users },
   { id: "courses", label: "Courses", icon: BookOpen },
